@@ -148,3 +148,6 @@ __pycache__/
 
 # byte-compiled python files
 /scripts/rkp_cfp/*.pyc
+
+# defex packed files
+/security/samsung/defex_lsm/
