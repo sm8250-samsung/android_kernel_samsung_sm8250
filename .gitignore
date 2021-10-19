@@ -145,3 +145,6 @@ techpack/
 # output dir
 /out/
 __pycache__/
+
+# byte-compiled python files
+/scripts/rkp_cfp/*.pyc
