@@ -141,3 +141,7 @@ arch/arm64/boot/dts/vendor/
 
 # Tech package directories
 techpack/
+
+# output dir
+/out/
+__pycache__/
