@@ -31,6 +31,8 @@ else ifeq ($(filter y,$(CONFIG_SEC_C1Q_PROJECT)),y)
 dts-dirs += c1q
 else ifeq ($(filter y,$(CONFIG_SEC_Z3Q_PROJECT)),y)
 dts-dirs += z3q
+else ifeq ($(filter y,$(CONFIG_SEC_Y2Q_PROJECT)),y)
+dts-dirs += y2q
 endif
 
 always          := $(dtb-y)
