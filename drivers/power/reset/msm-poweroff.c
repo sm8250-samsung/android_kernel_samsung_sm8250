@@ -210,7 +210,6 @@ static bool get_dload_mode(void)
 	return dload_mode_enabled;
 }
 
-#ifndef CONFIG_SEC_DEBUG
 static void enable_emergency_dload_mode(void)
 {
 	int ret;
@@ -237,7 +236,6 @@ static void enable_emergency_dload_mode(void)
 	if (ret)
 		pr_err("Failed to set secure EDLOAD mode: %d\n", ret);
 }
-#endif
 
 static int dload_set(const char *val, const struct kernel_param *kp)
 {
@@ -505,7 +503,6 @@ static void msm_restart_prepare(const char *cmd)
 	sec_debug_update_dload_mode(restart_mode, in_panic);
 #endif
 
-#ifndef CONFIG_SEC_DEBUG
 	if (qpnp_pon_check_hard_reset_stored()) {
 		/* Set warm reset as true when device is in dload mode */
 		if (get_dload_mode() ||
@@ -519,9 +516,6 @@ static void msm_restart_prepare(const char *cmd)
 
 	if (force_warm_reboot)
 		pr_info("Forcing a warm reset of the system\n");
-#else
-	need_warm_reset = get_dload_mode();
-#endif
 
 	/* Hard reset the PMIC unless memory contents must be maintained. */
 	if (force_warm_reboot || need_warm_reset)
@@ -576,10 +570,8 @@ static void msm_restart_prepare(const char *cmd)
 			if (!ret)
 				__raw_writel(0x6f656d00 | (code & 0xff),
 					     restart_reason);
-#ifndef CONFIG_SEC_DEBUG
 		} else if (!strncmp(cmd, "edl", 3)) {
 			enable_emergency_dload_mode();
-#endif
 #if defined(CONFIG_SEC_ABC)
 		} else if (!strncmp(cmd, "user_dram_test", 14) && sec_abc_get_enabled()) {
 			qpnp_pon_set_restart_reason(PON_RESTART_REASON_USER_DRAM_TEST);
